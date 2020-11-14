@@ -1,5 +1,3 @@
-# barber
- para iniciantes
 <h1 align="center">
   barber:barber:
 </h1>
