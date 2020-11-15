@@ -32,7 +32,7 @@ export default () => {
     }
 
     const handleSignClick = () => {
-
+        
     }
 
 
@@ -53,11 +53,11 @@ export default () => {
                     onChangeText={t=>setPasswordField(t)}
                     pass={true}
                     />
-                <LoginButton>
+                <LoginButton onPress={handleSignClick}>
                     <LoginButtonText>LOGIN</LoginButtonText>
                 </LoginButton>
             </InputArea>
-            <SignMessageButton>
+            <SignMessageButton onPress={handleMessageButtonClick}>
                 <SignMessageButtonText>Ainda não possui uma conta?</SignMessageButtonText>
                 <SignMessageButtonTextBold>Cadastre-se</SignMessageButtonTextBold>
             </SignMessageButton>
