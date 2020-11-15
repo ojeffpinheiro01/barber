@@ -1,43 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { 
     Container,
+    InputArea,
     SignUpButton,
     SignUpButtonText,
+    SignMessageButton,
     SignMessageButtonText,
-    SignMessageButtonTextBold,
-    InputArea,
-    SignMessageButton
+    SignMessageButtonTextBold
 } from './style';
 
+import SignInput from '../../componets/SignInput';
+import { UserContext } from '../../contexts/UserContext'
+import Api from '../../Api';
+
 import Logo from '../../assets/barber.svg';
+import PersonIcon from '../../assets/person.svg';
 import EmailIcon from '../../assets/email.svg';
 import LockIcon from '../../assets/lock.svg';
-import PersonIcon from '../../assets/person.svg';
-
-import SignInput from '../../componets/SignInput';
-
 
 export default () => {
+    const { dispatch: userDispatch } = useContext(UserContext);
     const navigation = useNavigation();
 
     const [nameField, setNameField] = useState('');
     const [emailField, setEmailField] = useState('');
     const [passwordField, setPasswordField] = useState('');
 
+    const handleSignClick = async () => {
+        if(nameField != '' && emailField != '' && passwordField != '') {
+            let res = await Api.signUp(nameField, emailField, passwordField);
+
+            if(res.token) {
+                await AsyncStorage.setItem('token', res.token);
+
+                userDispatch({
+                    type: 'setAvatar',
+                    payload:{
+                        avatar: res.data.avatar
+                    }
+                });
+                
+                navigation.reset({
+                    routes:[{name:'MainTab'}]
+                });
+
+            } else {
+                console.log(res.error)
+                alert("Oops: "+res.error);
+            }
+        } else {
+            alert("Preencha os campos");
+        }
+    }
+
     const handleMessageButtonClick = () => {
         navigation.reset({
             routes: [{name: 'SignIn'}]
-        })
+        });
     }
-
-    const handleSignClick = () => {
-        
-    }
-
 
     return (
         <Container>
