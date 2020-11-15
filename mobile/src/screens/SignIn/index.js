@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { UserContext } from '../../contexts/UserContext';
 import { 
     Container,
     InputArea,
@@ -13,7 +13,7 @@ import {
 } from './style';
 
 import Api from '../../Api';
-import { UserContext } from '../../contexts/UserContext'
+
 import SignInput from '../../componets/SignInput';
 
 import Logo from '../../assets/barber.svg';
@@ -28,34 +28,32 @@ export default () => {
     const [passwordField, setPasswordField] = useState('');
 
     const handleSignClick = async () => {
-        if(emailField != '' && passwordField != '') {
+        if (emailField != '' && passwordField != '') {
+                let res = await Api.signIn(emailField, passwordField)
 
-                let json = await Api.signIn(emailField, passwordField);
-
-                if(json.token) {
-                    await AsyncStorage.setItem('token', json.token);
+                if (res.token) {
+                    await AsyncStorage.setItem('token', res.token);
 
                     userDispatch({
                         type: 'setAvatar',
-                        payload:{
-                            avatar: json.data.avatar
+                        payload: {
+                            avatar: res.data.avatar
                         }
                     });
                     
                     navigation.reset({
-                        routes:[{name:'MainTab'}]
+                        routes: [{ name: 'MainTab' }]
                     });
                 } else {
-                    console.error(json.error)
-                    alert('E-mail e/ou senha incorretos');
+                    alert('E-mail e/ou senha inválidos!')
                 }
             } else {
-                alert("Preencha os campos!");
+                alert('Preencha os campos!')
             }
     }
     const handleMessageButtonClick = () => {
         navigation.reset({
-            routes: [{name: 'SignUp'}]
+            routes: [{ name: 'SignUp' }]
         });
     }
 
@@ -65,7 +63,7 @@ export default () => {
             <InputArea>
                 <SignInput 
                     Icone={EmailIcon}
-                    placeholder="Digite seu email"
+                    placeholder="Digite seu e-mail"
                     value={emailField}
                     onChangeText={t=>setEmailField(t)}
                      />

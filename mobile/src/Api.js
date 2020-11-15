@@ -8,10 +8,10 @@ export default {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({token})
-        });
-        const json = await req.json();        
-        return json;
+            body: JSON.stringify({ token })
+        })
+        const res = await req.json();        
+        return res;
     },
     signIn: async (email, password) => {
         const req = await fetch(`${BASE_API}/auth/login`, {
@@ -20,10 +20,10 @@ export default {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email, password})
-        });
-        const json = await req.json();
-        return json;
+            body: JSON.stringify({ email, password })
+        })
+        const res = await req.json();
+        return res;
     },
     signUp: async (name, email, password) => {
         const req = await fetch(`${BASE_API}/user`, {
@@ -32,9 +32,9 @@ export default {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name, email, password})
-        });
-        const json = await req.json();
-        return json;
+            body: JSON.stringify({ name, email, password })
+        })
+        const res = await req.json();
+        return res;
     }
-};
+}
