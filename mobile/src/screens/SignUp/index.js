@@ -1,6 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState, useContext} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import {UserContext} from '../../contexts/UserContext';
 
 import { 
     Container,
@@ -12,17 +14,18 @@ import {
     SignMessageButtonTextBold
 } from './style';
 
-import SignInput from '../../componets/SignInput';
-import { UserContext } from '../../contexts/UserContext'
 import Api from '../../Api';
-
+import SignInput from '../../componets/SignInput';
 import Logo from '../../assets/barber.svg';
-import PersonIcon from '../../assets/person.svg';
 import EmailIcon from '../../assets/email.svg';
 import LockIcon from '../../assets/lock.svg';
+import PersonIcon from '../../assets/person.svg'
+
 
 export default () => {
-    const { dispatch: userDispatch } = useContext(UserContext);
+
+    const {dispatch: userDispatch} = useContext(UserContext);
+
     const navigation = useNavigation();
 
     const [nameField, setNameField] = useState('');
@@ -30,54 +33,56 @@ export default () => {
     const [passwordField, setPasswordField] = useState('');
 
     const handleSignClick = async () => {
-        if (nameField != '' && emailField != '' && passwordField != '') {
+        if(nameField != '' && emailField != '' && passwordField != ''){
             let res = await Api.signUp(nameField, emailField, passwordField);
 
-            if (res.data.idToken) {
-                await AsyncStorage.setItem('idToken', res.data.idToken);
+            if(res.token){
+                await AsyncStorage.setItem('token', res.token); // 1° Passo:Salva no AsyncStorage
 
-                userDispatch({
-                    type: 'setUserContext',
-                    payload: {
-                        avatar: res.data.avatar,
-                        type: res.data.type
+                userDispatch({      // 2° Passo: Salva no Context.
+                    type:'setAvatar',
+                    payload:{
+                        avatar:res.data.avatar
                     }
                 });
                 
-                navigation.reset({
-                    routes: [{ name: 'MainTab' }]
+                navigation.reset({      // 3° Passo: Envia o usuário para MainTab.
+                    routes:[{name:'MainTab'}]
                 });
-            } else {
-                console.log(res.error)
-                alert("Oops: " + res.error)
+
+            }else{
+                alert("Oops: " + res.error);
             }
-        } else {
-            alert('Preencha os campos!')
+        }else{
+            alert("Por favor, preencha os campos!")
         }
     }
 
     const handleMessageButtonClick = () => {
         navigation.reset({
-            routes: [{ name: 'SignIn' }]
+            routes:[{name: 'SignIn'}]
         });
     }
 
     return (
         <Container>
-            <Logo width='100%' height='160' />
+            <Logo width="100%" height="160" />
             <InputArea>
+
                 <SignInput 
                     Icone={PersonIcon}
                     placeholder="Digite seu nome"
                     value={nameField}
-                    onChangeText={t=>setNameField(t)}
+                    onChangeText={t => setNameField(t)}
                      />
+                     
                 <SignInput 
                     Icone={EmailIcon}
                     placeholder="Digite seu email"
                     value={emailField}
                     onChangeText={t=>setEmailField(t)}
                      />
+
                 <SignInput 
                     Icone={LockIcon}
                     placeholder="Digite sua senha"
@@ -85,14 +90,17 @@ export default () => {
                     onChangeText={t=>setPasswordField(t)}
                     pass={true}
                     />
+
                 <SignUpButton onPress={handleSignClick}>
                     <SignUpButtonText>CADASTRAR</SignUpButtonText>
                 </SignUpButton>
             </InputArea>
-            <SignMessageButton onPress={handleMessageButtonClick}>
+
+            <SignMessageButton onPress={handleMessageButtonClick} >
                 <SignMessageButtonText>Já possui uma conta?</SignMessageButtonText>
                 <SignMessageButtonTextBold>Faça login</SignMessageButtonTextBold>
             </SignMessageButton>
+
         </Container>
     );
 }
