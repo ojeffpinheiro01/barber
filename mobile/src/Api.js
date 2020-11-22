@@ -1,44 +1,46 @@
-const BASE_API = 'https://barber-56631.firebaseio.com/';
+const BASE_API = 'https://api.b7web.com.br/devbarber/api';
 const authBaseURL = 'https://identitytoolkit.googleapis.com/v1'
 
 // import { API_KEY } from '../env'
-const API_KEY = 'AIzaSyBqtG08tLzd3Kaf251OJISu8W8GPmE-LkY'
+//const API_KEY = 'AIzaSyBqtG08tLzd3Kaf251OJISu8W8GPmE-LkY'
 
 export default {
     checkToken: async (token) => {
         const req = await fetch(`${BASE_API}/auth/refresh`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
+            method:'POST',
+            headers:{
+                accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token })
-        })
-        const res = await req.json();        
-        return res;
+            body: JSON.stringify({token})
+        });
+        const json = await req.json();        
+        return json;
     },
+
     signIn: async (email, password) => {
-        const req = await fetch(`${authBaseURL}/accounts:signUp?key=${API_KEY}`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
+        const req = await fetch(`${BASE_API}/auth/login`, {
+            method:'POST',
+            headers:{
+                accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
-        })
-        const res = await req.json();
-        return res;
+            body: JSON.stringify({email, password})
+        });
+        const json = await req.json();
+        return json;
     },
+    
     signUp: async (name, email, password) => {
-        const req = await fetch(`${authBaseURL}/signupNewUser?key=${API_KEY}`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
+        const req = await fetch(`${BASE_API}/user`, {
+            method:'POST',
+            headers:{
+                accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, password })
-        })
-        const res = await req.json();
-        return res;
+            body: JSON.stringify({name, email, password})
+        });
+        const json = await req.json();
+        return json;
     }
-}
+};

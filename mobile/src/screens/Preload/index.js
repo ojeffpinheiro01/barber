@@ -16,11 +16,11 @@ export default () => {
 
     useEffect(() => {
         const checkToken = async () => {
-            const token = await AsyncStorage.getItem('token');
-            if (token) {
-                let res = await Api.checkToken(token);
-                if (res.token) {
-                    await AsyncStorage.setItem('token', res.token);
+            const uid = await AsyncStorage.getItem('uid');
+            if (uid) {
+                let res = await Api.checkToken(uid);
+                if (res.uid) {
+                    await AsyncStorage.setItem('uid', res.uid);
 
                     userDispatch({
                         type: 'setUserContext',
