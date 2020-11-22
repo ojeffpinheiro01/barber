@@ -33,13 +33,14 @@ export default () => {
         if (nameField != '' && emailField != '' && passwordField != '') {
             let res = await Api.signUp(nameField, emailField, passwordField);
 
-            if (res.token) {
-                await AsyncStorage.setItem('token', res.token);
+            if (res.data.idToken) {
+                await AsyncStorage.setItem('idToken', res.data.idToken);
 
                 userDispatch({
-                    type: 'setAvatar',
+                    type: 'setUserContext',
                     payload: {
-                        avatar: res.data.avatar
+                        avatar: res.data.avatar,
+                        type: res.data.type
                     }
                 });
                 

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'react-native-firebase'
 import { UserContext } from '../../contexts/UserContext';
 import { 
     Container,
@@ -28,28 +29,15 @@ export default () => {
     const [passwordField, setPasswordField] = useState('');
 
     const handleSignClick = async () => {
-        if (emailField != '' && passwordField != '') {
-                let res = await Api.signIn(emailField, passwordField)
-
-                if (res.token) {
-                    await AsyncStorage.setItem('token', res.token);
-
-                    userDispatch({
-                        type: 'setAvatar',
-                        payload: {
-                            avatar: res.data.avatar
-                        }
-                    });
-                    
-                    navigation.reset({
-                        routes: [{ name: 'MainTab' }]
-                    });
-                } else {
-                    alert('E-mail e/ou senha inválidos!')
-                }
-            } else {
-                alert('Preencha os campos!')
-            }
+        try {
+            const user = await firebase.auth().signInWithEmailAndPassword(emailField, passwordField);
+            navigation.reset({
+                routes: [{ name: 'MainTab' }]
+            });
+            console.log(user);
+        } catch (err) {
+            console.log(err)
+        }
     }
     const handleMessageButtonClick = () => {
         navigation.reset({

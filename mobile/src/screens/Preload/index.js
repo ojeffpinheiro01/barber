@@ -10,8 +10,9 @@ import { Container, LoadingIcon } from './style';
 import { UserContext } from '../../contexts/UserContext';
 
 export default () => {
-    const { dispatch: userDispatch } = useContext(UserContext);
     const navigation = useNavigation();
+
+    const { dispatch: userDispatch } = useContext(UserContext);
 
     useEffect(() => {
         const checkToken = async () => {
@@ -22,23 +23,24 @@ export default () => {
                     await AsyncStorage.setItem('token', res.token);
 
                     userDispatch({
-                        type: 'setAvatar',
+                        type: 'setUserContext',
                         payload: {
-                            avatar: res.data.avatar
+                            avatar: res.data.avatar,
+                            type: res.data.type
                         }
                     });
                     navigation.reset({
                         routes: [{ name: 'MainTab' }]
                     });
                 } else {
-                    navigation.navigate('MainTab');
+                    navigation.navigate('SignIn');
                 }
             } else {
-                navigation.navigate('MainTab');
+                navigation.navigate('SignUp');
             }
         }
         checkToken();
-    }, []);
+    });
 
     return (
         <Container>

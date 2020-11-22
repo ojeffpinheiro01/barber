@@ -1,4 +1,8 @@
-const BASE_API = 'https://api.b7web.com.br/devbarber/api';
+const BASE_API = 'https://barber-56631.firebaseio.com/';
+const authBaseURL = 'https://identitytoolkit.googleapis.com/v1'
+
+// import { API_KEY } from '../env'
+const API_KEY = 'AIzaSyBqtG08tLzd3Kaf251OJISu8W8GPmE-LkY'
 
 export default {
     checkToken: async (token) => {
@@ -14,7 +18,7 @@ export default {
         return res;
     },
     signIn: async (email, password) => {
-        const req = await fetch(`${BASE_API}/auth/login`, {
+        const req = await fetch(`${authBaseURL}/accounts:signUp?key=${API_KEY}`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -26,7 +30,7 @@ export default {
         return res;
     },
     signUp: async (name, email, password) => {
-        const req = await fetch(`${BASE_API}/user`, {
+        const req = await fetch(`${authBaseURL}/signupNewUser?key=${API_KEY}`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
