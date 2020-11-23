@@ -15,31 +15,28 @@ import {
 
 import Api from '../../Api';
 import SignInput from '../../componets/SignInput';
-import Logo from '../../assets/barber.svg';
-import EmailIcon from '../../assets/email.svg';
-import LockIcon from '../../assets/lock.svg';
+import Logo from '../../assets/barber';
+import EmailIcon from '../../assets/email';
+import LockIcon from '../../assets/lock';
 
 
 export default () => {
-
     const {dispatch: userDispatch} = useContext(UserContext);
-
     const navigation = useNavigation();
-
     const [emailField, setEmailField] = useState('');
     const [passwordField, setPasswordField] = useState('');
 
     const handleSignClick = async () => {
        if(emailField != '' && passwordField != ''){ // Verifica se campos estão preenchidos.
-           let json = await Api.signIn(emailField, passwordField);
+           let res = await Api.signIn(emailField, passwordField);
 
-           if(json.token){
-               await AsyncStorage.setItem('token', json.token); // 1° Passo:Salva no AsyncStorage
+           if(res.token){
+               await AsyncStorage.setItem('token', res.token); // 1° Passo:Salva no AsyncStorage
 
                userDispatch({      // 2° Passo: Salva no Context.
                    type:'setAvatar',
                    payload:{
-                       avatar:json.data.avatar
+                       avatar: res.data.avatar
                    }
                });
 
