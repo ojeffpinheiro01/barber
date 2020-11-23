@@ -15,9 +15,9 @@ import {
 
 import Api from '../../Api';
 import SignInput from '../../componets/SignInput';
-import Logo from '../../assets/barber.svg';
-import EmailIcon from '../../assets/email.svg';
-import LockIcon from '../../assets/lock.svg';
+import Logo from '../../assets/barber';
+import EmailIcon from '../../assets/email';
+import LockIcon from '../../assets/lock';
 
 
 export default () => {

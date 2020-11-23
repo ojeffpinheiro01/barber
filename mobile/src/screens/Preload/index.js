@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Api from '../../Api';
 
-import Logo from '../../assets/barber.svg'
+import Logo from '../../assets/barber'
 
 import { Container, LoadingIcon } from './style';
 import { UserContext } from '../../contexts/UserContext';

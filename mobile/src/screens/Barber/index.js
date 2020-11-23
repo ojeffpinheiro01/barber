@@ -46,12 +46,14 @@ import FavoriteIcon from '../../assets/favorite';
 import BackIcon from '../../assets/back';
 import NavPrevIcon from '../../assets/nav_prev';
 import NavNextIcon from '../../assets/nav_next';
+import BarberModal from '../../componets/BarberModal';
 
 export default () => {
   const navigation = useNavigation();
   const route = useRoute();
 
   const [selectedService, setSelectedService] = useState(null)
+  const [showModal, setShowModal] = useState(false)
   const [favorited, setFavorited] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -85,6 +87,7 @@ export default () => {
 
     const handleServiceChoose = key => {
       setSelectedService(key)
+      setShowModal(true)
     }
 
     return (
@@ -175,6 +178,13 @@ export default () => {
           <BackButton onPress={handleBackButton}>
             <BackIcon width="44" height="44" fill="#FFFFFF" />
           </BackButton>
+
+          <BarberModal 
+            show={showModal}
+            setShow={setShowModal}
+            user={userInfo}
+            service={selectedService}
+          />
       </Container>
     );
 };

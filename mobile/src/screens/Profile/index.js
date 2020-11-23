@@ -10,8 +10,8 @@ import {
   Container,
 } from './style';
 
-import SearchIcon from '../../assets/search.svg';
-import MyLocationIcon from '../../assets/my_location.svg';
+import SearchIcon from '../../assets/search';
+import MyLocationIcon from '../../assets/my_location';
 
 export default () => {
     const navigation = useNavigation();

@@ -17,8 +17,8 @@ import Geolocation from '@react-native-community/geolocation';
 
 import {useNavigation} from '@react-navigation/native';
 
-import SearchIcon from '../../assets/search.svg';
-import MyLocationIcon from '../../assets/my_location.svg';
+import SearchIcon from '../../assets/search';
+import MyLocationIcon from '../../assets/my_location';
 import Api from '../../Api';
 import BarberItem from '../../componets/BarberItem'
 
