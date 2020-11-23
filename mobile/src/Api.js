@@ -4,7 +4,6 @@ const BASE_API = 'https://api.b7web.com.br/devbarber/api';
 const authBaseURL = 'https://identitytoolkit.googleapis.com/v1'
 
 // import { API_KEY } from '../env'
-//const API_KEY = 'AIzaSyBqtG08tLzd3Kaf251OJISu8W8GPmE-LkY'
 
 export default {
     checkToken: async (token) => {
@@ -59,7 +58,6 @@ export default {
         const json = req.json();
         return json;
     },
-
     getBarbers: async (lat = null, lng = null, address = null) => {
         const token = await AsyncStorage.getItem('token');
         const req = await fetch(

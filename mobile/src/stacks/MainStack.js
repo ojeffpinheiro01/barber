@@ -5,6 +5,7 @@ import Preload from '../screens/Preload';
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
 import MainTab from '../stacks/MainTab';
+import Barber from '../screens/Barber';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,10 @@ function MyStack() {
             component={SignUp} 
             />
         <Stack.Screen name="MainTab" component={MainTab} />
+        <Stack.Screen 
+            name="Barber" 
+            component={Barber} 
+            />
     </Stack.Navigator>
     )
 }

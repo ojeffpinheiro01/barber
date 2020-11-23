@@ -66,23 +66,20 @@ export default () => {
     }
 
     let res = await Api.getBarbers(lat, lgn, locationText);
-
-    if(res.error == ""){
-        if(res.loc){
-          setLocationText(res.loc)
-        }
-        setList(res.data)
-    } else {
-      alert("Oops: " + res.error)
-    }
-
-    setLoading(false)
+      if(res.error == ""){
+          if(res.loc){
+            setLocationText(res.loc)
+          }
+          setList(res.data)
+      } else {
+        alert("Oops: " + res.error)
+      }
+      setLoading(false)
   };
 
   const onRefresh = () => {
     setRefreshing(false)
     getBarbers()
-  
   }
 
   const handleLocationSearch = () => {
