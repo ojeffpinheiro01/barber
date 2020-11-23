@@ -17,6 +17,7 @@ export const PageBody = styled.View`
   min-height: 400px;
   margin-top: -50px;
 `;
+
 export const UserInfoArea = styled.View`
   flex-direction: row;
   margin-top: -30px;
@@ -64,7 +65,6 @@ export const SwipeImage = styled.Image`
 export const ServiceArea = styled.View`
   margin-top: 20px;
 `;
-
 export const SwipeDot = styled.View`
   width: 10px;
   height: 10px;
@@ -126,6 +126,7 @@ export const ServiceChooseButtonText = styled.Text`
   font-weight: bold;
   color: #ffffff;
 `;
+
 export const TestimonialArea = styled.View`
   margin-top: 30px;
   margin-bottom:50px;
@@ -140,16 +141,16 @@ export const TestimonialItem = styled.View`
   margin-right:40px;
 `;
 export const TestimonialInfo = styled.View`
-    flex-direction:row;
-    justify-content:space-between;
-    margin-bottom:5px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
 `;
 export const TestimonialName = styled.Text`
-    color:#FFF;
-    font-size:14px;
-    font-weight:bold;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
 `;
 export const TestimonialBody = styled.Text`
-    color:#FFF;
-    font-size:13px;
+    color: #FFF;
+    font-size: 13px;
 `;

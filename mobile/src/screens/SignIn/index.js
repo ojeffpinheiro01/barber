@@ -28,15 +28,15 @@ export default () => {
 
     const handleSignClick = async () => {
        if(emailField != '' && passwordField != ''){ // Verifica se campos estão preenchidos.
-           let json = await Api.signIn(emailField, passwordField);
+           let res = await Api.signIn(emailField, passwordField);
 
-           if(json.token){
-               await AsyncStorage.setItem('token', json.token); // 1° Passo:Salva no AsyncStorage
+           if(res.token){
+               await AsyncStorage.setItem('token', res.token); // 1° Passo:Salva no AsyncStorage
 
                userDispatch({      // 2° Passo: Salva no Context.
                    type:'setAvatar',
                    payload:{
-                       avatar:json.data.avatar
+                       avatar: res.data.avatar
                    }
                });
 

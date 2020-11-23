@@ -15,8 +15,8 @@ export default {
             },
             body: JSON.stringify({token})
         });
-        const json = await req.json();        
-        return json;
+        const res = await req.json();        
+        return res;
     },
 
     signIn: async (email, password) => {
@@ -28,8 +28,8 @@ export default {
             },
             body: JSON.stringify({email, password})
         });
-        const json = await req.json();
-        return json;
+        const res = await req.json();
+        return res;
     },
     
     signUp: async (name, email, password) => {
@@ -41,8 +41,8 @@ export default {
             },
             body: JSON.stringify({name, email, password})
         });
-        const json = await req.json();
-        return json;
+        const res = await req.json();
+        return res;
     },
 
     logout: async () => {
@@ -55,8 +55,8 @@ export default {
             },
             body: JSON.stringify({token}),
         });
-        const json = req.json();
-        return json;
+        const res = req.json();
+        return res;
     },
     getBarbers: async (lat = null, lng = null, address = null) => {
         const token = await AsyncStorage.getItem('token');
@@ -69,9 +69,8 @@ export default {
     getBarber: async (id) => {
         const token = await AsyncStorage.getItem('token');
         const req = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
-        const json = await req.json();
-        console.log(json);
-        return json;
+        const res = await req.json();
+        return res;
     },
     setFavorite: async (barberId) => {
         const token = await AsyncStorage.getItem('token');
@@ -83,9 +82,8 @@ export default {
             },
             body: JSON.stringify({barber: barberId}),
         });
-        const json = await req.json();
-        console.log("FAVORITEJSON",json)
-        return json;
+        const res = await req.json();
+        return res;
     },
     setAppointments: async (
         userId,
@@ -103,35 +101,33 @@ export default {
             'Content-type': 'application/json',
             },
             body: JSON.stringify({
-            token,
-            id: userId,
-            service,
-            year: selectedYear,
-            month: selectedMonth,
-            day: selectedDay,
-            hour: selectedHour,
+                token,
+                id: userId,
+                service,
+                year: selectedYear,
+                month: selectedMonth,
+                day: selectedDay,
+                hour: selectedHour,
             }),
         });
-        const json = req.json();
-        return json;
+        const res = req.json();
+        return res;
     },
     search: async (barberName) => {
         const token = await AsyncStorage.getItem('token');
         const req = await fetch(
             `${BASE_API}/search?q=${barberName}&token=${token}`,
         );
-        const json = await req.json();
-
-        return json;
+        const res = await req.json();
+        return res;
     },
     getFavorites: async () => {
         const token = await AsyncStorage.getItem('token');
         const req = await fetch(
             `${BASE_API}/user/favorites?token=${token}`,
         );
-        const json = await req.json();
-
-        return json;
+        const res = await req.json();
+        return res;
     },
 
     getAppointments: async () => {
@@ -139,8 +135,7 @@ export default {
     const req = await fetch(
         `${BASE_API}/user/appointments?token=${token}`,
     );
-    const json = await req.json();
-
-    return json;
+    const res = await req.json();
+    return res;
     },
 };

@@ -4,21 +4,23 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   Container,
   Texto,
-  FakeSwiper,
   Scroller,
   PageBody,
-  UserInfoArea,
+  BackButton,
+  LoadingIcon,
+  
+  FakeSwiper,
   SwipeDot,
   SwipeDotActive,
   SwipeImage,
   SwipeItem,
-  TestimonialArea,
+
+  UserInfoArea,
   UserInfoName,
   UserInfo,
   UserFavButton,
   UserAvatar,
-  BackButton,
-  LoadingIcon,
+  
   ServiceItem,
   ServiceInfo,
   ServiceName,
@@ -27,6 +29,8 @@ import {
   ServiceChooseButton,
   ServiceChooseButtonText,
   ServiceTitle,
+  
+  TestimonialArea,
   TestimonialInfo,
   TestimonialItem,
   TestimonialName,
@@ -113,7 +117,7 @@ export default () => {
                   <UserAvatar source={{uri: userInfo.avatar}} />
                   <UserInfo>
                       <UserInfoName>{userInfo.name}</UserInfoName>
-                      <Stars stars={userInfo.stars} showNumber={true} />
+                      <Stars note={userInfo.stars} showN />
                   </UserInfo>
                   <UserFavButton onPress={handleFavClick}>
                       {favorited ? (
@@ -158,7 +162,7 @@ export default () => {
                             <TestimonialItem key={key}>
                               <TestimonialInfo>
                                   <TestimonialName>{item.name}</TestimonialName>
-                                  <Stars stars={item.rate} showNumber={false} />
+                                  <Stars note={item.rate} showN={false} />
                               </TestimonialInfo>
                               <TestimonialBody>{item.body}</TestimonialBody>
                             </TestimonialItem>
