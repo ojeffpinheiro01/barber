@@ -16,32 +16,34 @@ export default () => {
 
     useEffect(() => {
         const checkToken = async () => {
-            const uid = await AsyncStorage.getItem('uid');
-            if (uid) {
-                let res = await Api.checkToken(uid);
-                if (res.uid) {
-                    await AsyncStorage.setItem('uid', res.uid);
-
-                    userDispatch({
-                        type: 'setUserContext',
-                        payload: {
-                            avatar: res.data.avatar,
-                            type: res.data.type
-                        }
-                    });
-                    navigation.reset({
-                        routes: [{ name: 'MainTab' }]
-                    });
-                } else {
-                    navigation.navigate('SignIn');
-                }
+          const token = await AsyncStorage.getItem('token');
+          if (token) {
+            let res = await Api.checkToken(token);
+            if (res.token) {
+              await AsyncStorage.setItem('token', res.token);
+              userDispatch({
+                type: 'setAvatar',
+                payload: {
+                  avatar: res.data.avatar,
+                },
+              });
+              navigation.reset({
+                routes: [
+                  {
+                    name: 'MainTab',
+                  },
+                ],
+              });
             } else {
-                navigation.navigate('SignUp');
+              navigation.navigate('SignIn');
             }
-        }
-        checkToken();
-    });
-
+          } else {
+            navigation.navigate('SignIn');
+          }
+        };
+        checkToken()
+      }, []);
+    
     return (
         <Container>
             <Logo width="100%" height="160" />
