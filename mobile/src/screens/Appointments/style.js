@@ -1,50 +1,50 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #63C2D1;
 `;
-export const Scroller = styled.ScrollView`
-  flex: 1;
-  padding: 20px;
-`;
-export const HeaderArea = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-export const HeaderTitle = styled.Text`
-  width: 250px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-`;
-export const SearchButton = styled.TouchableOpacity`
-  width: 26px;
-  height: 26px; 
-`;
-export const LocationArea = styled.View`
-  background: #4EADBE;
-  height: 60px;
-  border-radius: 30px;
-  flex-direction: row;
-  align-items: center;
+export const SearchArea = styled.View`
+  background-color: #4EADBE;
+  height: 40px;
+  border-radius: 20px;
   padding: 0 20px;
-  margin-top: 30px;
+  margin: 20px;
+  margin-bottom: 0px;
 `;
-export const LocationInput = styled.TextInput`
+
+export const SearchInput = styled.TextInput`
   flex: 1;
   font-size: 16px;
-  color: #fff;
+  color: #ffffff;
 `;
-export const LocationFinder = styled.TouchableOpacity`
-  width: 24px;
-  height: 24px;
+
+export const Scroller = styled.ScrollView`
+  flex: 1;
+  padding: 0 20px;
 `;
 export const LoadingIcon = styled.ActivityIndicator`
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 export const ListArea = styled.View`
-  margin: 30px 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+export const EmptyWarning = styled.Text`
+    text-align:center;
+    margin-top:30px;
+    color:#FFFFFF;
+    font-size:25px;
+`;
+
+export const HeaderArea = styled.View`
+  height:50px;
+  justify-content:center;
+  padding:0 20px;
+`;
+export const HeaderTitle = styled.Text`
+  font-size:18px;
+  color:#FFFFFF;
+  font-weight:bold;
+  text-align:left;
 `;

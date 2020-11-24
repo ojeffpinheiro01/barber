@@ -1,31 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, RefreshControl, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { request, PERMISSIONS } from 'react-native-permissions';
-import Geolocation from '@react-native-community/geolocation';
-
-import Api from '../../Api';
-
+import React, {useState} from 'react';
 import {
   Container,
+  SearchArea,
+  SearchInput,
   Scroller,
-  HeaderArea,
-  HeaderTitle,
-  SearchButton,
-  LocationArea,
-  LocationInput,
-  LocationFinder,
   LoadingIcon,
-  ListArea
+  ListArea,
+  EmptyWarning,
 } from './style';
-
-import SearchIcon from '../../assets/search';
-import MyLocationIcon from '../../assets/my_location';
+import BarberItem from '../../componets/BarberItem';
+import Api from '../../Api';
 
 export default () => {
-    return(
-        <Container>
-            <Text>Procurar</Text>
-        </Container>
-    )
-}
+  const [searchText, setSearchText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
+  const [emptyList, setEmptyList] = useState(false);
+
+  const searchBarbers = async () => {
+    setEmptyList(false);
+    setLoading(true);
+    setList([]);
+
+    if (searchText != '') {
+      let res = await Api.search(searchText);
+
+      if (res.error == '') {
+        if (res.list.length > 0) {
+          setList(res.list);
+        } else {
+          setEmptyList(true);
+        }
+      } else {
+        alert('Error: ' + res.error);
+      }
+    }
+    setLoading(false);
+  };
+
+  return (
+    <Container>
+      <SearchArea>
+        <SearchInput
+          placeholder="Digite o nome do barbeiro"
+          placeholderTextColor="#FFFFFF"
+          value={searchText}
+          onChangeText={(t) => setSearchText(t)}
+          onEndEditing={searchBarbers}
+          returnKeyType="search"
+          autofocus
+          selectTextOnFocus
+        />
+      </SearchArea>
+
+      <Scroller>
+        {loading && <LoadingIcon size="large" color="#000000" />}
+        {emptyList && (
+          <EmptyWarning>
+            "{searchText}" não encontrado(a)
+          </EmptyWarning>
+        )}
+        <ListArea>
+          {list.map((item, k) => (
+            <BarberItem data={item} key={k} />
+          ))}
+        </ListArea>
+      </Scroller>
+    </Container>
+  );
+};

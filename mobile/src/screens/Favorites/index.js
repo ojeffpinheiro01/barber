@@ -1,31 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, RefreshControl, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { request, PERMISSIONS } from 'react-native-permissions';
-import Geolocation from '@react-native-community/geolocation';
-
-import Api from '../../Api';
-
+import React, {useEffect, useState} from 'react';
 import {
   Container,
-  Scroller,
   HeaderArea,
   HeaderTitle,
-  SearchButton,
-  LocationArea,
-  LocationInput,
-  LocationFinder,
+  Scroller,
   LoadingIcon,
-  ListArea
+  ListArea,
+  EmptyWarning,
 } from './style';
-
-import SearchIcon from '../../assets/search';
-import MyLocationIcon from '../../assets/my_location';
+import {RefreshControl} from 'react-native'
+import BarberItem from '../../componets/BarberItem';
+import Api from '../../Api';
 
 export default () => {
-    return(
-        <Container>
-            <Text>Favoritos</Text>
-        </Container>
-    )
-}
+  const [list, setList] = useState([]);
+  const [emptyList, setEmptyList] = useState(false);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(()=>{
+    getFavorites()
+  },[])
+
+  const getFavorites = async () => {
+    setLoading(true);
+    setList([]);
+    let res = await Api.getFavorites();
+    if(res.error == ''){
+      setList(res.list)
+    } else {
+      alert("Erro: " + res.error)
+    }
+    setLoading(false);
+  };
+
+  return (
+    <Container>
+        <HeaderArea>
+          <HeaderTitle>Favoritos</HeaderTitle>
+        </HeaderArea>
+      <Scroller refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={getFavorites}/>
+      }>
+        {!loading && list.length === 0 &&
+        <HeaderTitle>Você não escolheu nenhum barbeiro(s) como favorito(s). </HeaderTitle>}
+        <ListArea>
+          {list.map((item, k) => (
+            <BarberItem data={item} key={k} />
+          ))}
+        </ListArea>
+      </Scroller>
+    </Container>
+  );
+};
