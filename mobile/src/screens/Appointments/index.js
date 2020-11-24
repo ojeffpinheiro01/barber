@@ -1,31 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, RefreshControl, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { request, PERMISSIONS } from 'react-native-permissions';
-import Geolocation from '@react-native-community/geolocation';
-
-import Api from '../../Api';
-
+import React, {useEffect, useState} from 'react';
 import {
   Container,
-  Scroller,
-  HeaderArea,
   HeaderTitle,
-  SearchButton,
-  LocationArea,
-  LocationInput,
-  LocationFinder,
-  LoadingIcon,
+  Scroller,
   ListArea
 } from './style';
-
-import SearchIcon from '../../assets/search';
-import MyLocationIcon from '../../assets/my_location';
+import {RefreshControl} from 'react-native'
+import AppointmentsItem from '../../componets/AppointmentsItem';
+import Api from '../../Api';
 
 export default () => {
-    return(
-        <Container>
-            <Text>Appointments</Text>
-        </Container>
-    )
-}
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(()=>{
+    getAppointments()
+  },[])
+
+  const getAppointments = async () => {
+    setLoading(true);
+    setList([]);
+    let res = await Api.getAppointments();
+    if(res.error == ''){
+      setList(res.list)
+    } else {
+      alert("Erro: " + res.error)
+    }
+    setLoading(false);
+  };
+
+  return (
+    <Container>
+       
+      <Scroller refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={getAppointments}/>
+      }>
+        {!loading && list.length === 0 &&
+        <HeaderTitle>Você ainda não tem barbeiro(s) como favorito(s). </HeaderTitle>}
+        <ListArea>
+          {list.map((item, k) => (
+            <AppointmentsItem data={item} key={k} />
+          ))}
+        </ListArea>
+      </Scroller>
+    </Container>
+  );
+};

@@ -245,7 +245,7 @@ export default ({show, setShow, user, service}) => {
     setSelectedDay(0);
   };
 
-  const AvancarMes = () => {
+  const handleRightDateClick = () => {
     let mountDate = new Date(selectedYear, selectedMonth, 0);
     mountDate.setMonth(mountDate.getMonth() + 1);
     setSelectedYear(mountDate.getFullYear());
@@ -291,7 +291,7 @@ export default ({show, setShow, user, service}) => {
                   {months[selectedMonth]} {selectedYear}
                 </DateTitle>
               </DateTitleArea>
-              <DataNextArea onPress={AvancarMes}>
+              <DataNextArea onPress={handleRightDateClick}>
                 <NavNextIcon width="35" height="35" fill="#000000" />
               </DataNextArea>
             </DateInfo>
