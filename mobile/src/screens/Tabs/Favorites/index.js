@@ -1,26 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {
   Container,
+  HeaderArea,
   HeaderTitle,
   Scroller,
-  ListArea
+  LoadingIcon,
+  ListArea,
+  EmptyWarning,
 } from './style';
 import {RefreshControl} from 'react-native'
-import AppointmentsItem from '../../componets/AppointmentsItem';
-import Api from '../../Api';
+import BarberItem from '../../../componets/BarberItem';
+import Api from '../../../Api';
 
 export default () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false)
 
   useEffect(()=>{
-    getAppointments()
+    getFavorites()
   },[])
 
-  const getAppointments = async () => {
+  const getFavorites = async () => {
     setLoading(true);
     setList([]);
-    let res = await Api.getAppointments();
+    let res = await Api.getFavorites();
     if(res.error == ''){
       setList(res.list)
     } else {
@@ -31,15 +34,17 @@ export default () => {
 
   return (
     <Container>
-       
+        <HeaderArea>
+          <HeaderTitle>Favoritos</HeaderTitle>
+        </HeaderArea>
       <Scroller refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={getAppointments}/>
+        <RefreshControl refreshing={loading} onRefresh={getFavorites}/>
       }>
         {!loading && list.length === 0 &&
-        <HeaderTitle>Você ainda não tem barbeiro(s) como favorito(s). </HeaderTitle>}
+        <HeaderTitle>Você não escolheu nenhum barbeiro(s) como favorito(s). </HeaderTitle>}
         <ListArea>
           {list.map((item, k) => (
-            <AppointmentsItem data={item} key={k} />
+            <BarberItem data={item} key={k} />
           ))}
         </ListArea>
       </Scroller>
