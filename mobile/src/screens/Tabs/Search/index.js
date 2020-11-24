@@ -8,8 +8,8 @@ import {
   ListArea,
   EmptyWarning,
 } from './style';
-import BarberItem from '../../componets/BarberItem';
-import Api from '../../Api';
+import BarberItem from '../../../componets/BarberItem';
+import Api from '../../../Api';
 
 export default () => {
   const [searchText, setSearchText] = useState('');

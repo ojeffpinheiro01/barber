@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
-import Home from '../screens/Home';
-import Search from '../screens/Search';
-import Appointments from '../screens/Appointments';
-import Favorites from '../screens/Favorites';
-import Profile from '../screens/Profile';
+import Home from '../screens/Tabs/Home';
+import Search from '../screens/Tabs/Search';
+import Appointments from '../screens/Tabs/Appointments';
+import Favorites from '../screens/Tabs/Favorites';
+import Profile from '../screens/Tabs/Profile';
 import CusttomTabBar from '../componets/CusttomTabBar';
 
 export default () => (

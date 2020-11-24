@@ -17,10 +17,10 @@ import Geolocation from '@react-native-community/geolocation';
 
 import {useNavigation} from '@react-navigation/native';
 
-import SearchIcon from '../../assets/search';
-import MyLocationIcon from '../../assets/my_location';
-import Api from '../../Api';
-import BarberItem from '../../componets/BarberItem'
+import SearchIcon from '../../../assets/search';
+import MyLocationIcon from '../../../assets/my_location';
+import Api from '../../../Api';
+import BarberItem from '../../../componets/BarberItem'
 
 export default () => {
   const navigation = useNavigation();
