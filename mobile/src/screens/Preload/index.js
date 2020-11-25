@@ -24,7 +24,9 @@ export default () => {
               userDispatch({
                 type: 'setAvatar',
                 payload: {
+                  name: res.data.name,
                   avatar: res.data.avatar,
+                  email: res.data.email
                 },
               });
               navigation.reset({

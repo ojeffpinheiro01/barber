@@ -42,7 +42,9 @@ export default () => {
                 userDispatch({      // 2° Passo: Salva no Context.
                     type:'setAvatar',
                     payload:{
-                        avatar:res.data.avatar
+                        name: res.data.name,
+                        avatar: res.data.avatar,
+                        email: res.data.email
                     }
                 });
                 

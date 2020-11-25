@@ -36,9 +36,12 @@ export default () => {
                userDispatch({      // 2° Passo: Salva no Context.
                    type:'setAvatar',
                    payload:{
-                       avatar: res.data.avatar
+                       name: res.data.name,
+                       avatar: res.data.avatar,
+                       email: res.data.email
                    }
                });
+               console.log(res)
 
                navigation.reset({      // 3° Passo: Envia o usuário para MainTab.
                    routes:[{name:'MainTab'}]
