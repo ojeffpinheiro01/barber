@@ -27,7 +27,7 @@ $ git clone https://github.com/ojeffoinheiro/barber.git
 ```
 ## Go into the repository
 ```bash
-$ cd barber
+$ cd barber\mobile
 ```
 ## Install the dependencies
 ```bash
